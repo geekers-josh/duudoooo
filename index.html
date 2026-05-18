@@ -1,0 +1,1989 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>肚肚 dudoo · 合作研究備忘錄 | 投研版</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e14;
+    --surface: #131821;
+    --surface-2: #1a212c;
+    --surface-3: #232c39;
+    --rule: #2a3340;
+    --rule-strong: #3a4554;
+    --text: #e8e6e1;
+    --text-2: #b8bcc4;
+    --text-mute: #6e7681;
+    --text-dim: #4a5260;
+    --gold: #d4a043;
+    --gold-bright: #e8b54a;
+    --gold-soft: rgba(212, 160, 67, 0.12);
+    --red: #cc4242;
+    --red-soft: rgba(204, 66, 66, 0.12);
+    --green: #5a9a5a;
+    --green-soft: rgba(90, 154, 90, 0.12);
+    --blue: #5b8fb9;
+
+    --serif: 'Microsoft JhengHei', '微軟正黑體', 'PingFang TC', 'Noto Sans TC', 'Inter', system-ui, sans-serif;
+    --sans: 'Microsoft JhengHei', '微軟正黑體', 'PingFang TC', 'Noto Sans TC', 'Inter', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', 'Consolas', 'Courier New', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  em, i, cite, address, dfn { font-style: normal; }
+  html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.6;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(212, 160, 67, 0.04) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 90%, rgba(91, 143, 185, 0.03) 0%, transparent 50%);
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  /* ===== Top Strip ===== */
+  .ribbon {
+    background: var(--surface);
+    border-bottom: 1px solid var(--rule);
+    padding: 10px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+    background: rgba(19, 24, 33, 0.92);
+  }
+
+  .ribbon-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 48px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 32px;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    color: var(--text-mute);
+    text-transform: uppercase;
+  }
+
+  .ribbon-logo {
+    color: var(--gold);
+    font-family: var(--serif);
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: none;
+  }
+
+  .ribbon-logo span {
+    color: var(--text);
+    font-style: normal;
+    font-weight: 400;
+  }
+
+  .ribbon-ticker {
+    display: flex;
+    gap: 28px;
+    justify-content: center;
+  }
+
+  .ticker-item {
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+  }
+
+  .ticker-item .label { color: var(--text-dim); }
+  .ticker-item .val { color: var(--text); font-weight: 500; }
+  .ticker-item .val.pos { color: var(--gold); }
+  .ticker-item .val.neu { color: var(--blue); }
+
+  /* ===== Container ===== */
+  .doc {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 48px 100px 48px;
+  }
+
+  /* ===== Masthead ===== */
+  .masthead {
+    padding: 60px 0 40px 0;
+    border-bottom: 3px double var(--rule-strong);
+    margin-bottom: 48px;
+    text-align: center;
+  }
+
+  .masthead-kicker {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .masthead-kicker::before,
+  .masthead-kicker::after {
+    content: '— ';
+    color: var(--text-dim);
+  }
+  .masthead-kicker::after { content: ' —'; }
+
+  .masthead h1 {
+    font-family: var(--serif);
+    font-size: clamp(48px, 6vw, 84px);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .masthead h1 em {
+    font-style: normal;
+    color: var(--gold);
+    font-weight: 300;
+  }
+
+  .masthead-deck {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 300;
+    color: var(--text-2);
+    line-height: 1.5;
+    max-width: 760px;
+    margin: 0 auto 40px auto;
+  }
+
+  .masthead-meta {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    padding-top: 28px;
+    border-top: 1px solid var(--rule);
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+  }
+
+  .masthead-meta div span {
+    display: block;
+    color: var(--text);
+    font-weight: 500;
+    margin-top: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ===== Rating Box (sell-side feel) ===== */
+  .rating-box {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 0;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    margin-bottom: 64px;
+    position: relative;
+  }
+
+  .rating-box::before {
+    content: 'ASSESSMENT';
+    position: absolute;
+    top: -10px;
+    left: 24px;
+    background: var(--bg);
+    color: var(--gold);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    padding: 0 10px;
+    font-weight: 600;
+  }
+
+  .rating-cell {
+    padding: 32px 28px;
+    border-right: 1px solid var(--rule);
+  }
+  .rating-cell:last-child { border-right: none; }
+
+  .rating-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    margin-bottom: 10px;
+  }
+
+  .rating-headline {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--gold);
+    line-height: 1.2;
+    margin-bottom: 8px;
+    font-style: normal;
+  }
+
+  .rating-sub {
+    font-size: 13px;
+    color: var(--text-2);
+    line-height: 1.5;
+  }
+
+  .rating-stamp {
+    display: inline-block;
+    padding: 6px 14px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    font-weight: 700;
+    border: 2px solid currentColor;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .rating-confidence {
+    margin-top: 12px;
+  }
+
+  .conf-bar {
+    height: 6px;
+    background: var(--rule);
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+
+  .conf-fill {
+    height: 100%;
+    background: var(--gold);
+  }
+
+  .conf-text {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--text-mute);
+    letter-spacing: 0.08em;
+  }
+
+  /* ===== Section ===== */
+  section {
+    margin-bottom: 72px;
+    scroll-margin-top: 70px;
+  }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    margin-bottom: 36px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .section-marker {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    font-weight: 500;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(32px, 4vw, 44px);
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    flex: 1;
+  }
+
+  .section-title em {
+    font-style: normal;
+    color: var(--gold);
+    font-weight: 400;
+  }
+
+  .section-aside {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  .section-deck {
+    font-family: var(--serif);
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 300;
+    color: var(--text-2);
+    line-height: 1.6;
+    max-width: 760px;
+    margin-bottom: 32px;
+  }
+
+  /* ===== Snapshot ===== */
+  .snap-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin-bottom: 24px;
+  }
+
+  .snap-cell {
+    background: var(--surface);
+    padding: 24px 28px;
+  }
+
+  .snap-cell:hover { background: var(--surface-2); }
+
+  .snap-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    margin-bottom: 12px;
+  }
+
+  .snap-value {
+    font-family: var(--serif);
+    font-size: 21px;
+    line-height: 1.35;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .snap-value small {
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-mute);
+    display: block;
+    margin-top: 6px;
+    line-height: 1.55;
+  }
+
+  .snap-value .gold {
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  /* ===== Pull / Quote ===== */
+  .pull {
+    margin: 36px 0;
+    padding: 28px 36px;
+    background: var(--surface);
+    border-left: 3px solid var(--gold);
+    font-family: var(--serif);
+    font-size: 21px;
+    line-height: 1.55;
+    color: var(--text);
+    font-style: normal;
+    font-weight: 400;
+  }
+
+  .pull strong {
+    color: var(--gold);
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  .pull-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-style: normal;
+    margin-bottom: 14px;
+    display: block;
+    font-weight: 600;
+  }
+
+  /* ===== Products ===== */
+  .products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+
+  .product {
+    background: var(--surface);
+    padding: 28px;
+    transition: background 0.2s ease;
+  }
+
+  .product:hover { background: var(--surface-2); }
+
+  .product-cat {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+
+  .product h3 {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+
+  .product-url {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-mute);
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed var(--rule-strong);
+  }
+
+  .product-desc {
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: var(--text-2);
+  }
+
+  /* ===== Clients ===== */
+  .clients {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+
+  .client {
+    background: var(--surface);
+    padding: 16px 22px;
+    flex: 1 1 auto;
+    text-align: center;
+    font-family: var(--serif);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    transition: all 0.2s ease;
+    min-width: 140px;
+  }
+
+  .client.featured {
+    background: var(--gold-soft);
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  .client:hover {
+    background: var(--gold);
+    color: var(--bg);
+  }
+
+  /* ===== Tech ===== */
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+
+  .tech-card {
+    background: var(--surface);
+    padding: 28px;
+  }
+
+  .tech-card h4 {
+    font-family: var(--serif);
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--gold);
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--rule);
+    font-style: normal;
+  }
+
+  .tech-card ul { list-style: none; }
+  .tech-card li {
+    padding: 8px 0 8px 22px;
+    position: relative;
+    border-bottom: 1px dotted var(--rule);
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text-2);
+  }
+  .tech-card li:last-child { border-bottom: none; }
+  .tech-card li::before {
+    content: '·';
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    color: var(--gold);
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1;
+  }
+  .tech-card code {
+    font-family: var(--mono);
+    font-size: 12px;
+    background: var(--surface-3);
+    color: var(--gold);
+    padding: 1px 7px;
+    font-weight: 500;
+  }
+
+  /* ===== Media list ===== */
+  .media-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+  }
+
+  .media-table thead th {
+    background: var(--surface-2);
+    text-align: left;
+    padding: 14px 22px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    border-bottom: 1px solid var(--gold);
+  }
+
+  .media-table tbody tr {
+    border-bottom: 1px solid var(--rule);
+    transition: background 0.15s ease;
+  }
+  .media-table tbody tr:hover { background: var(--surface-2); }
+  .media-table tbody tr:last-child { border-bottom: none; }
+
+  .media-table td {
+    padding: 14px 22px;
+    font-size: 14px;
+    color: var(--text-2);
+  }
+
+  .media-table td.date {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-mute);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    width: 110px;
+  }
+
+  .media-table td.outlet {
+    font-family: var(--serif);
+    font-weight: 600;
+    color: var(--gold);
+    white-space: nowrap;
+    width: 140px;
+    font-style: normal;
+  }
+
+  .media-table td.head { color: var(--text); }
+
+  /* ===== Matrix ===== */
+  .matrix-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    font-size: 14px;
+  }
+
+  .matrix-table thead th {
+    background: var(--surface-2);
+    text-align: left;
+    padding: 14px 18px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    border-bottom: 2px solid var(--gold);
+  }
+
+  .matrix-table tbody tr {
+    border-bottom: 1px solid var(--rule);
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  .matrix-table tbody tr:hover { background: var(--surface-2); }
+  .matrix-table tbody tr:last-child { border-bottom: none; }
+
+  .matrix-table td {
+    padding: 14px 18px;
+    vertical-align: middle;
+  }
+
+  .m-rank {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-mute);
+    font-weight: 500;
+    width: 50px;
+  }
+
+  .m-name {
+    font-family: var(--serif);
+    font-weight: 500;
+    color: var(--text);
+    font-size: 16px;
+  }
+
+  .m-score {
+    width: 180px;
+  }
+
+  .score-pip {
+    display: inline-flex;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .score-pip span {
+    width: 9px;
+    height: 16px;
+    background: var(--rule);
+  }
+
+  .score-pip span.f { background: var(--gold); }
+
+  .score-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-mute);
+    margin-left: 10px;
+    letter-spacing: 0.04em;
+  }
+
+  .m-stack {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-2);
+    letter-spacing: 0.02em;
+    width: 200px;
+  }
+
+  .rating-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 4px 10px;
+    border: 1px solid currentColor;
+    display: inline-block;
+  }
+
+  .rating-tag.buy { color: var(--gold); background: var(--gold-soft); }
+  .rating-tag.strategic { color: var(--green); background: var(--green-soft); }
+  .rating-tag.hold { color: var(--blue); background: rgba(91,143,185,0.1); }
+  .rating-tag.avoid { color: var(--red); background: var(--red-soft); }
+  .rating-tag.verify { color: var(--text-mute); background: var(--surface-3); }
+
+  /* ===== Dive ===== */
+  .dive {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    margin-bottom: 14px;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+  }
+
+  .dive:hover { border-color: var(--rule-strong); }
+
+  .dive-head {
+    display: grid;
+    grid-template-columns: 60px 1fr 160px 60px;
+    gap: 20px;
+    align-items: center;
+    padding: 22px 28px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s ease;
+  }
+  .dive-head:hover { background: var(--surface-2); }
+
+  .dive-num {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+  }
+
+  .dive-title {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .dive-title em {
+    font-style: normal;
+    color: var(--gold);
+    font-size: 14px;
+    margin-left: 8px;
+  }
+
+  .dive-pips {
+    display: inline-flex;
+    gap: 3px;
+  }
+
+  .dive-pips span {
+    width: 11px;
+    height: 14px;
+    background: var(--rule);
+  }
+  .dive-pips span.f { background: var(--gold); }
+
+  .dive-toggle {
+    text-align: right;
+    font-family: var(--serif);
+    font-size: 28px;
+    color: var(--text-mute);
+    transition: transform 0.3s ease, color 0.3s ease;
+    line-height: 1;
+    font-weight: 300;
+  }
+  .dive.open .dive-toggle {
+    transform: rotate(45deg);
+    color: var(--gold);
+  }
+
+  .dive-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+  }
+  .dive.open .dive-body { max-height: 3000px; }
+
+  .dive-content {
+    padding: 0 28px 32px 28px;
+    border-top: 1px solid var(--rule);
+    padding-top: 28px;
+  }
+
+  .dive-block { margin-bottom: 24px; }
+  .dive-block:last-child { margin-bottom: 0; }
+
+  .dive-block-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .dive-block ul { list-style: none; }
+  .dive-block ul li {
+    padding: 7px 0 7px 24px;
+    position: relative;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--text-2);
+  }
+  .dive-block ul li::before {
+    content: '›';
+    position: absolute;
+    left: 6px;
+    color: var(--gold);
+    font-weight: 700;
+    font-family: var(--serif);
+    font-size: 16px;
+  }
+  .dive-block code {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    background: var(--surface-3);
+    color: var(--gold);
+    padding: 1px 7px;
+  }
+  .dive-block p {
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: var(--text-2);
+  }
+  .dive-block p + p { margin-top: 12px; }
+  .dive-block strong {
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  /* ===== Strategy ===== */
+  .strategy {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+
+  .strat {
+    background: var(--surface);
+    padding: 32px 28px;
+    position: relative;
+  }
+
+  .strat-num {
+    font-family: var(--serif);
+    font-size: 64px;
+    font-weight: 400;
+    font-style: normal;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .strat-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    margin-bottom: 14px;
+  }
+
+  .strat-label strong {
+    display: block;
+    color: var(--gold);
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+
+  .strat h4 {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--rule);
+    font-style: normal;
+  }
+
+  .strat ul { list-style: none; }
+  .strat ul li {
+    padding: 8px 0 8px 22px;
+    position: relative;
+    font-size: 14px;
+    color: var(--text-2);
+    border-bottom: 1px dotted var(--rule);
+  }
+  .strat ul li:last-child { border-bottom: none; }
+  .strat ul li::before {
+    content: '◆';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 10px;
+    top: 11px;
+  }
+
+  /* ===== Questions ===== */
+  .q-list {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+  }
+
+  .q-item {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    gap: 24px;
+    padding: 22px 28px;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .q-item:last-child { border-bottom: none; }
+  .q-item:hover { background: var(--surface-2); }
+
+  .q-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    padding-top: 6px;
+  }
+
+  .q-text {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+
+  .q-why {
+    font-size: 13.5px;
+    color: var(--text-mute);
+    line-height: 1.65;
+    font-style: normal;
+  }
+
+  /* ===== Risks ===== */
+  .risk-box {
+    background: var(--surface);
+    border: 1px solid var(--red);
+    padding: 28px 36px;
+    position: relative;
+  }
+
+  .risk-box::before {
+    content: 'CAUTION';
+    position: absolute;
+    top: -10px;
+    left: 24px;
+    background: var(--bg);
+    color: var(--red);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    padding: 0 10px;
+    font-weight: 700;
+  }
+
+  .risk-title {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-style: normal;
+    color: var(--text);
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .risk-box ul { list-style: none; }
+  .risk-box ul li {
+    padding: 12px 0 12px 28px;
+    position: relative;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--text-2);
+    border-bottom: 1px dashed var(--rule);
+  }
+  .risk-box ul li:last-child { border-bottom: none; }
+  .risk-box ul li::before {
+    content: '✕';
+    position: absolute;
+    left: 0;
+    color: var(--red);
+    font-weight: 700;
+    font-size: 16px;
+    top: 12px;
+  }
+  .risk-box ul li strong { color: var(--red); font-weight: 600; }
+
+  /* ===== Glossary ===== */
+  .glossary {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+
+  .glossary-group {
+    background: var(--surface);
+    padding: 28px 32px;
+  }
+
+  .glossary-group-title {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--gold);
+    font-style: normal;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .glossary dl {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .glossary dl > div {
+    padding: 11px 0;
+    border-bottom: 1px dotted var(--rule);
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 18px;
+    align-items: baseline;
+  }
+
+  .glossary dl > div:last-child { border-bottom: none; }
+
+  .glossary dt {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  .glossary dd {
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: var(--text-2);
+  }
+
+  /* ===== Closing ===== */
+  .closing {
+    margin-top: 80px;
+    padding: 48px 0 0 0;
+    border-top: 3px double var(--rule-strong);
+    text-align: center;
+  }
+
+  .closing-mark {
+    font-family: var(--serif);
+    font-size: 28px;
+    color: var(--gold);
+    font-style: normal;
+    margin-bottom: 18px;
+  }
+
+  .closing-line {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    margin-bottom: 8px;
+  }
+
+  .closing-foot {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 1024px) {
+    .ribbon-inner, .doc { padding-left: 24px; padding-right: 24px; }
+    .ribbon-ticker { display: none; }
+    .products, .tech-grid, .strategy, .rating-box, .snap-grid { grid-template-columns: 1fr; }
+    .masthead h1 { font-size: 42px; }
+    .masthead-meta { flex-direction: column; gap: 16px; }
+    .matrix-table .m-stack, .matrix-table .m-score { display: none; }
+    .dive-head { grid-template-columns: 40px 1fr 30px; }
+    .dive-head .dive-pips { display: none; }
+  }
+
+  @media print {
+    body { background: white; color: black; }
+    .ribbon { display: none; }
+    .dive-body { max-height: none !important; }
+    .dive-toggle { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Top ribbon -->
+<div class="ribbon">
+  <div class="ribbon-inner">
+    <div class="ribbon-logo">Research<span>　Memo</span></div>
+    <div class="ribbon-ticker">
+      <div class="ticker-item"><span class="label">SUBJECT</span><span class="val">DUDOO</span></div>
+      <div class="ticker-item"><span class="label">RATING</span><span class="val pos">PURSUE</span></div>
+      <div class="ticker-item"><span class="label">CONFIDENCE</span><span class="val neu">75%</span></div>
+      <div class="ticker-item"><span class="label">SECTOR</span><span class="val">F&amp;B SaaS</span></div>
+    </div>
+    <div>2026.05.13 · Vol. I · No. 001</div>
+  </div>
+</div>
+
+<div class="doc">
+
+  <!-- Masthead -->
+  <header class="masthead">
+    <div class="masthead-kicker">Partnership Research · Confidential</div>
+    <h1>肚肚 dudoo<br><em>合作研究備忘錄</em></h1>
+    <p class="masthead-deck">
+      鴻海孵化、王品投資的智慧餐飲 SaaS — 主動接洽合作，意圖未明。
+      本研究在會議前釐清其產品全貌、技術線索與十二個可能合作面向，並出具初步建議評等。
+    </p>
+    <div class="masthead-meta">
+      <div>Subject<span>肚肚股份有限公司</span></div>
+      <div>Domain<span>dudooeat.com</span></div>
+      <div>Issued<span>May 13, 2026</span></div>
+      <div>Coverage<span>Initial / 公開資料</span></div>
+    </div>
+  </header>
+
+  <!-- Rating Summary Box -->
+  <div class="rating-box">
+    <div class="rating-cell">
+      <div class="rating-label">Headline Recommendation</div>
+      <div class="rating-headline">值得深入評估，<br>但先別急著報價</div>
+      <div class="rating-sub">肚肚有非典型生態系護城河（鴻海 + 王品）。合作戰略價值高於單純接案，
+        但技術現況不明 — 簽約前需充分盡調。</div>
+    </div>
+    <div class="rating-cell">
+      <div class="rating-label">Overall Rating</div>
+      <div class="rating-stamp">PURSUE</div>
+      <div class="rating-confidence">
+        <div class="conf-bar"><div class="conf-fill" style="width:75%"></div></div>
+        <div class="conf-text">Confidence · 75%</div>
+      </div>
+    </div>
+    <div class="rating-cell">
+      <div class="rating-label">Best Fit Opportunities</div>
+      <div class="rating-headline" style="font-size:40px;font-style:normal">5<small style="font-family:var(--sans);font-size:14px;color:var(--text-mute);font-style:normal;margin-left:6px">/ 12</small></div>
+      <div class="rating-sub">面向達 ★★★★★ 適配度，建議列為主力推進。</div>
+    </div>
+    <div class="rating-cell">
+      <div class="rating-label">Pre-Commit Questions</div>
+      <div class="rating-headline" style="font-size:40px;font-style:normal">7</div>
+      <div class="rating-sub">會前必問題目，未答清楚之前不報價、不寫 SOW。</div>
+    </div>
+  </div>
+
+  <!-- Section 1: Company -->
+  <section id="s1">
+    <div class="section-head">
+      <div class="section-marker">§ 01</div>
+      <h2 class="section-title">公司<em>全貌</em></h2>
+      <div class="section-aside">Company Profile</div>
+    </div>
+    <p class="section-deck">
+      一家典型的「大企業孵化 × 連鎖客戶背書」型 SaaS — 不靠燒錢，靠生態系。
+    </p>
+
+    <div class="snap-grid">
+      <div class="snap-cell">
+        <div class="snap-label">公司</div>
+        <div class="snap-value">肚肚股份有限公司<small>品牌：肚肚 dudoo</small></div>
+      </div>
+      <div class="snap-cell">
+        <div class="snap-label">定位</div>
+        <div class="snap-value"><span class="gold">智慧餐飲解決方案</span><small>POS · 線上點餐 · 訂位 · 硬體商城 一條龍</small></div>
+      </div>
+      <div class="snap-cell">
+        <div class="snap-label">背景</div>
+        <div class="snap-value">鴻海集團孵化<small>王品集團策略投資</small></div>
+      </div>
+      <div class="snap-cell">
+        <div class="snap-label">合作網絡</div>
+        <div class="snap-value">新保 ‧ 中興保全<small>LINE 新星計畫 · 高市府數位轉型</small></div>
+      </div>
+      <div class="snap-cell">
+        <div class="snap-label">高雄總部</div>
+        <div class="snap-value">前鎮區成功二路 25 號<small>07 975 9697 · LINE @805zmthe</small></div>
+      </div>
+      <div class="snap-cell">
+        <div class="snap-label">台北辦公室</div>
+        <div class="snap-value">大安區泰順街 38 巷<small>LINE @568ctxub</small></div>
+      </div>
+      <div class="snap-cell">
+        <div class="snap-label">台中辦公室</div>
+        <div class="snap-value">北區三民路三段<small>LINE @649jzpoi</small></div>
+      </div>
+      <div class="snap-cell">
+        <div class="snap-label">後台網址</div>
+        <div class="snap-value">admin.dudooeat.com<small>店家統一登入入口</small></div>
+      </div>
+    </div>
+
+    <div class="pull">
+      <span class="pull-label">Key Insight · 關鍵觀察</span>
+      值得注意的是 — 肚肚同時掌握 <strong>連鎖餐飲客戶名單</strong>、<strong>鴻海硬體供應鏈</strong>、
+      <strong>王品經營實戰經驗</strong>三條護城河。會議時可就「生態系延伸」方向切入，
+      他們需要的可能不只是技術外包，而是補齊產品線。
+    </div>
+  </section>
+
+  <!-- Section 2: Products -->
+  <section id="s2">
+    <div class="section-head">
+      <div class="section-marker">§ 02</div>
+      <h2 class="section-title">產品<em>線</em></h2>
+      <div class="section-aside">Product Portfolio</div>
+    </div>
+    <p class="section-deck">
+      以雲端 iPad POS 為核心，向上延伸線上點餐、QR 掃碼、訂位候位，向下接硬體商城。
+    </p>
+
+    <div class="products">
+      <div class="product">
+        <div class="product-cat">Core · 核心</div>
+        <h3>POS 系統</h3>
+        <div class="product-url">/pos/</div>
+        <p class="product-desc">餐桌管理、訂單、結帳、發票、會員集點、多店管理、報表分析、員工權限。雲端架構，主打「不被傳統 POS 綁架」。</p>
+      </div>
+      <div class="product">
+        <div class="product-cat">Channel · 通路</div>
+        <h3>線上點餐</h3>
+        <div class="product-url">/online-ordering/</div>
+        <p class="product-desc">整合 foodpanda 與 Uber Eats 訂單，LINE「肚肚找美食」線上門店，訂單自動進 POS。</p>
+      </div>
+      <div class="product">
+        <div class="product-cat">Channel · 通路</div>
+        <h3>QR Code 掃碼點餐</h3>
+        <div class="product-url">/contactless-orders/</div>
+        <p class="product-desc">純網頁，免下載 App。掃碼即綁桌號，加註記、加點、自動送廚房出單。</p>
+      </div>
+      <div class="product">
+        <div class="product-cat">Frontline · 接待</div>
+        <h3>訂位 ‧ 候位</h3>
+        <div class="product-url">/reserve/</div>
+        <p class="product-desc">LINE OA 訂位、網頁訂位、現場排隊一站整合。後台以顏色標籤管理客人狀態。</p>
+      </div>
+      <div class="product">
+        <div class="product-cat">Acquisition · 拓客</div>
+        <h3>iPad 贊助方案</h3>
+        <div class="product-url">/ipad_sponsor/</div>
+        <p class="product-desc">免費贊助 2,000 台 iPad 給合作餐廳。綁約細節未公開，推測搭配長期 SaaS 月費。</p>
+      </div>
+      <div class="product">
+        <div class="product-cat">Hardware · 周邊</div>
+        <h3>肚肚商城</h3>
+        <div class="product-url">/online-store/</div>
+        <p class="product-desc">iPad、EPSON 熱感出單機、Prowill 出單機、標籤機、掃描槍、熱感紙。售價 4,200–10,500 元。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Tech -->
+  <section id="s3">
+    <div class="section-head">
+      <div class="section-marker">§ 03</div>
+      <h2 class="section-title">技術<em>線索</em></h2>
+      <div class="section-aside">Technology Signals</div>
+    </div>
+    <p class="section-deck">
+      官網未揭露技術棧。以下為從產品功能、整合對象、URL 結構反推的線索。
+    </p>
+
+    <div class="tech-grid">
+      <div class="tech-card">
+        <h4>架構推論</h4>
+        <ul>
+          <li>雲端 SaaS · 強調「資料即時儲存」</li>
+          <li>店家後台位於 <code>admin.dudooeat.com</code></li>
+          <li>店端走 iPad（不走傳統地端 POS 機）</li>
+          <li>顧客端強調「免下載 App」 → 用瀏覽器開的網頁版（PWA）</li>
+        </ul>
+      </div>
+      <div class="tech-card">
+        <h4>金流整合</h4>
+        <ul>
+          <li>LINE Pay · 街口 · 一卡通 · 台新 One 碼</li>
+          <li>信用卡 · 現金 · 自訂支付方式</li>
+          <li>支援組合付款（券 + 現金 + 卡）</li>
+          <li>電子發票「字軌紀錄」功能</li>
+        </ul>
+      </div>
+      <div class="tech-card">
+        <h4>外部串接</h4>
+        <ul>
+          <li><code>foodpanda</code> · <code>Uber Eats</code> 訂單匯入</li>
+          <li><code>LINE OA</code> · <code>LINE SPOT</code></li>
+          <li>廚房出單機 · 客顯</li>
+          <li>EPSON · Prowill 等硬體廠</li>
+        </ul>
+      </div>
+      <div class="tech-card">
+        <h4>未公開資訊</h4>
+        <ul>
+          <li>後端語言 · 框架 · 資料庫</li>
+          <li>是否有 Open API / Webhook 機制</li>
+          <li>iPad App 為原生 Swift 還是 Web</li>
+          <li>店家規模（門市數 · 交易量）</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Matrix -->
+  <section id="s4">
+    <div class="section-head">
+      <div class="section-marker">§ 04</div>
+      <h2 class="section-title">合作<em>矩陣</em></h2>
+      <div class="section-aside">Opportunity Matrix</div>
+    </div>
+    <p class="section-deck">
+      以 Laravel × Flutter 適配度為基礎，對十二個可能合作面向打分排序。
+      點擊任一列可跳至下方對應深度評估。
+    </p>
+
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Opportunity · 合作面向</th>
+          <th>Fit Score · 適配度</th>
+          <th>Stack · 主棧</th>
+          <th>Rating · 建議</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-target="d1"><td class="m-rank">01</td><td class="m-name">CRM ‧ 會員行銷自動化</td><td class="m-score"><div class="score-pip"><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span class="score-num">5.0</span></div></td><td class="m-stack">Laravel + Filament</td><td><span class="rating-tag buy">Buy</span></td></tr>
+        <tr data-target="d2"><td class="m-rank">02</td><td class="m-name">進銷存深化</td><td class="m-score"><div class="score-pip"><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span class="score-num">5.0</span></div></td><td class="m-stack">Laravel + Flutter</td><td><span class="rating-tag buy">Buy</span></td></tr>
+        <tr data-target="d3"><td class="m-rank">03</td><td class="m-name">排班系統</td><td class="m-score"><div class="score-pip"><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span class="score-num">5.0</span></div></td><td class="m-stack">Laravel + Flutter</td><td><span class="rating-tag buy">Sweet Spot</span></td></tr>
+        <tr data-target="d4"><td class="m-rank">04</td><td class="m-name">開放 API ‧ Open Platform</td><td class="m-score"><div class="score-pip"><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span class="score-num">5.0</span></div></td><td class="m-stack">Laravel Passport</td><td><span class="rating-tag strategic">Strategic</span></td></tr>
+        <tr data-target="d5"><td class="m-rank">05</td><td class="m-name">第三方整合中介層</td><td class="m-score"><div class="score-pip"><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span class="score-num">5.0</span></div></td><td class="m-stack">Laravel iPaaS</td><td><span class="rating-tag strategic">Strategic</span></td></tr>
+        <tr data-target="d6"><td class="m-rank">06</td><td class="m-name">BI ‧ 數據分析儀表板</td><td class="m-score"><div class="score-pip"><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span></span><span class="score-num">4.0</span></div></td><td class="m-stack">+ ClickHouse</td><td><span class="rating-tag hold">Hold</span></td></tr>
+        <tr data-target="d7"><td class="m-rank">07</td><td class="m-name">海外市場（多語 ‧ 多幣）</td><td class="m-score"><div class="score-pip"><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span></span><span class="score-num">4.0</span></div></td><td class="m-stack">Laravel i18n</td><td><span class="rating-tag hold">Hold</span></td></tr>
+        <tr data-target="d8"><td class="m-rank">08</td><td class="m-name">硬體周邊（KDS · Kiosk）</td><td class="m-score"><div class="score-pip"><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span></span><span class="score-num">4.0</span></div></td><td class="m-stack">Flutter Desktop</td><td><span class="rating-tag hold">Hold</span></td></tr>
+        <tr data-target="d9"><td class="m-rank">09</td><td class="m-name">AI 應用 — LLM 類</td><td class="m-score"><div class="score-pip"><span class="f"></span><span class="f"></span><span class="f"></span><span></span><span></span><span class="score-num">3.0</span></div></td><td class="m-stack">Laravel + LLM API</td><td><span class="rating-tag hold">Hold</span></td></tr>
+        <tr data-target="d10"><td class="m-rank">10</td><td class="m-name">店家後台 UI 重構</td><td class="m-score"><div class="score-pip"><span class="f"></span><span class="f"></span><span class="f"></span><span></span><span></span><span class="score-num">3.0</span></div></td><td class="m-stack">視現況決定</td><td><span class="rating-tag verify">Verify</span></td></tr>
+        <tr data-target="d11"><td class="m-rank">11</td><td class="m-name">AI 影像辨識（CV）</td><td class="m-score"><div class="score-pip"><span class="f"></span><span class="f"></span><span></span><span></span><span></span><span class="score-num">2.0</span></div></td><td class="m-stack">外接雲端 API</td><td><span class="rating-tag avoid">Avoid</span></td></tr>
+        <tr data-target="d12"><td class="m-rank">12</td><td class="m-name">iPad POS App 重構</td><td class="m-score"><div class="score-pip"><span class="f"></span><span class="f"></span><span></span><span></span><span></span><span class="score-num">2.0</span></div></td><td class="m-stack">不建議</td><td><span class="rating-tag avoid">Avoid</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Section 5: Deep dives -->
+  <section id="s5">
+    <div class="section-head">
+      <div class="section-marker">§ 05</div>
+      <h2 class="section-title">深入<em>評估</em></h2>
+      <div class="section-aside">Detailed Assessment</div>
+    </div>
+    <p class="section-deck">點擊任一卡片展開完整評估。內容含可做項目、技術選型、風險。</p>
+
+    <div class="dive" id="d1">
+      <div class="dive-head" onclick="toggleDive(this)">
+        <div class="dive-num">01</div>
+        <div class="dive-title">CRM ‧ 會員行銷自動化</div>
+        <div class="dive-pips"><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span></div>
+        <div class="dive-toggle">+</div>
+      </div>
+      <div class="dive-body"><div class="dive-content">
+        <div class="dive-block">
+          <span class="dive-block-label">Scope · 能做什麼</span>
+          <ul>
+            <li>會員 RFM 分群（消費頻率／金額／最近消費）</li>
+            <li>自動行銷流程：生日券、流失喚回、首購禮、消費滿額升等</li>
+            <li>多通路觸發：LINE OA push、簡訊、Email</li>
+            <li>優惠券系統（單次／多次／堆疊規則、防濫用）</li>
+            <li>點數系統升級（多店通用、有效期、轉贈）</li>
+          </ul>
+        </div>
+        <div class="dive-block">
+          <span class="dive-block-label">Stack · 技術選型</span>
+          <ul>
+            <li>後台：<code>Laravel</code> + <code>Filament</code> 或 <code>Livewire + Vue</code></li>
+            <li>排程：<code>Laravel Scheduler</code> + <code>Queue (Redis/Horizon)</code></li>
+            <li>LINE 整合：<code>LINE Messaging API</code></li>
+            <li>簡訊：三竹、Mitake、every8d</li>
+          </ul>
+        </div>
+        <div class="dive-block">
+          <span class="dive-block-label">Risk · 主要風險</span>
+          <ul>
+            <li>跟既有 POS 資料庫整合方式（API or 直連 DB？）</li>
+            <li>大量推播時序：10 萬會員 broadcast 要分批避免 LINE rate limit</li>
+          </ul>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="dive" id="d2">
+      <div class="dive-head" onclick="toggleDive(this)">
+        <div class="dive-num">02</div>
+        <div class="dive-title">進銷存深化</div>
+        <div class="dive-pips"><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span></div>
+        <div class="dive-toggle">+</div>
+      </div>
+      <div class="dive-body"><div class="dive-content">
+        <div class="dive-block">
+          <span class="dive-block-label">Scope · 能做什麼</span>
+          <ul>
+            <li>BOM 表（一杯珍奶用幾克茶葉、幾顆珍珠）→ 自動扣庫存</li>
+            <li>多倉管理（總倉 → 分店倉）</li>
+            <li>自動進貨建議（安全庫存、再訂貨點）</li>
+            <li>盤點 App（Flutter，掃條碼）</li>
+            <li>損耗 / 報廢 / 內部消耗記錄</li>
+            <li>供應商管理、採購單、應付帳款</li>
+          </ul>
+        </div>
+        <div class="dive-block">
+          <span class="dive-block-label">Stack · 技術選型</span>
+          <ul>
+            <li><code>Laravel</code> + <code>spatie/laravel-event-sourcing</code>（庫存異動 audit trail）</li>
+            <li>Flutter + <code>mobile_scanner</code>（條碼掃描）</li>
+            <li><strong>拒絕</strong>用 ORM 直接更新庫存 → 用 DB transaction + 行鎖避免超賣</li>
+          </ul>
+        </div>
+        <div class="dive-block">
+          <span class="dive-block-label">Risk · 主要風險</span>
+          <ul>
+            <li>餐飲業 BOM 很雜（半成品、加料、客製化），規格定義要花時間</li>
+            <li>跟 POS 即時扣庫存的耦合度需討論</li>
+          </ul>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="dive" id="d3">
+      <div class="dive-head" onclick="toggleDive(this)">
+        <div class="dive-num">03</div>
+        <div class="dive-title">排班系統<em>— Sweet Spot</em></div>
+        <div class="dive-pips"><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span></div>
+        <div class="dive-toggle">+</div>
+      </div>
+      <div class="dive-body"><div class="dive-content">
+        <div class="dive-block">
+          <p>這是 <strong>Laravel + Flutter 組合的甜蜜點</strong> — 既有 Web 後台，又有員工手機 App。</p>
+        </div>
+        <div class="dive-block">
+          <span class="dive-block-label">Scope · 能做什麼</span>
+          <ul>
+            <li>員工 App：看班表、換班申請、請假、打卡（GPS / Wi-Fi / NFC）</li>
+            <li>店長後台：拖拉式排班、人力成本預估、勞基法合規檢查</li>
+            <li>整合薪資計算</li>
+            <li>跨店人力調度</li>
+          </ul>
+        </div>
+        <div class="dive-block">
+          <span class="dive-block-label">Stack · 技術選型</span>
+          <ul>
+            <li>Flutter（員工 App）+ <code>FCM</code> 推播 + <code>geolocator</code> 打卡</li>
+            <li>Laravel + <code>Filament Calendar</code> 或 <code>FullCalendar</code></li>
+          </ul>
+        </div>
+        <div class="dive-block">
+          <span class="dive-block-label">Why Sweet Spot · 為何是甜蜜點</span>
+          <p>餐飲業排班是高頻痛點，但市面方案（LineUp、班表通）整合 POS 不深。
+          跟 POS 結合可以做<strong>人力效率分析</strong> — 每小時人力成本對比營收，
+          這是肚肚連鎖客戶會買單的故事。</p>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="dive" id="d4">
+      <div class="dive-head" onclick="toggleDive(this)">
+        <div class="dive-num">04</div>
+        <div class="dive-title">開放 API ‧ Open Platform</div>
+        <div class="dive-pips"><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span></div>
+        <div class="dive-toggle">+</div>
+      </div>
+      <div class="dive-body"><div class="dive-content">
+        <div class="dive-block">
+          <span class="dive-block-label">Scope · 能做什麼</span>
+          <ul>
+            <li>把 POS 的訂單、會員、商品開放給合作夥伴</li>
+            <li>Webhook 通知第三方（訂單成立、會員升等）</li>
+            <li>OAuth2 授權店家</li>
+            <li>沙盒環境、API 文件站、SDK</li>
+          </ul>
+        </div>
+        <div class="dive-block">
+          <span class="dive-block-label">Stack · 技術選型</span>
+          <ul>
+            <li><code>Laravel Passport</code> 或 <code>Sanctum</code></li>
+            <li>API 文件：<code>Scribe</code> 或 <code>Scramble</code></li>
+            <li>Rate limiting：Laravel built-in throttle</li>
+            <li>Webhook 重送：Queue + exponential backoff</li>
+          </ul>
+        </div>
+        <div class="dive-block">
+          <span class="dive-block-label">Strategic Value · 戰略價值</span>
+          <p>肚肚有王品 + 鴻海背景，<strong>生態系是他們的競爭護城河</strong>。
+          做 Open Platform 等於幫他們把連鎖客戶鎖死 — 一旦串接，遷移成本超高。
+          這條線的長期合約價值最高。</p>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="dive" id="d5">
+      <div class="dive-head" onclick="toggleDive(this)">
+        <div class="dive-num">05</div>
+        <div class="dive-title">第三方整合中介層</div>
+        <div class="dive-pips"><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span></div>
+        <div class="dive-toggle">+</div>
+      </div>
+      <div class="dive-body"><div class="dive-content">
+        <div class="dive-block">
+          <span class="dive-block-label">Payment · 金流</span>
+          <ul>
+            <li>綠界 ECPay、藍新 NewebPay、紅陽 ESafe</li>
+            <li>玉山 / 中信 / 國泰收單（需簽 NDA）</li>
+            <li>LINE Pay Merchant、街口</li>
+            <li>Apple Pay / Google Pay</li>
+          </ul>
+        </div>
+        <div class="dive-block">
+          <span class="dive-block-label">Invoice · 發票</span>
+          <ul>
+            <li>綠界、ezPay、藍新都有完整電子發票 API</li>
+            <li>B2B 三聯、B2C 二聯、捐贈、作廢、折讓、進銷項申報</li>
+          </ul>
+        </div>
+        <div class="dive-block">
+          <span class="dive-block-label">ERP · 會計</span>
+          <ul>
+            <li>鼎新 Workflow ERP、正航、SAP、Oracle NetSuite</li>
+            <li>透過 CSV 排程匯出 或 API 中介層</li>
+            <li>做一個 <strong>iPaaS-like 中介層</strong>（Laravel）統一收進來再分發</li>
+          </ul>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="dive" id="d6">
+      <div class="dive-head" onclick="toggleDive(this)">
+        <div class="dive-num">06</div>
+        <div class="dive-title">BI ‧ 數據分析儀表板</div>
+        <div class="dive-pips"><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span></span></div>
+        <div class="dive-toggle">+</div>
+      </div>
+      <div class="dive-body"><div class="dive-content">
+        <div class="dive-block">
+          <span class="dive-block-label">Scope · 能做什麼</span>
+          <ul>
+            <li>即時營收儀表板（多店、多時段、品項熱度）</li>
+            <li>預測：下週備料量、來客數預估</li>
+            <li>異常告警：營收驟降、退單異常、員工異常打折</li>
+          </ul>
+        </div>
+        <div class="dive-block">
+          <span class="dive-block-label">Stack · 技術選型</span>
+          <ul>
+            <li>後端：Laravel + <code>ClickHouse</code> 或 <code>TimescaleDB</code></li>
+            <li>圖表：<code>Apache ECharts</code> / <code>Chart.js</code></li>
+            <li>即時：<code>Laravel Reverb</code> 或 <code>Pusher</code></li>
+            <li>資料量超大（億級）建議：<strong>Metabase / Superset + Laravel 權限層</strong></li>
+          </ul>
+        </div>
+        <div class="dive-block">
+          <span class="dive-block-label">Risk · 主要風險</span>
+          <ul>
+            <li>資料量級不明，Laravel + MySQL 處理上億筆會痛</li>
+            <li>跨店即時聚合建議分冷熱資料：熱 Redis、冷 OLAP</li>
+          </ul>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="dive" id="d7">
+      <div class="dive-head" onclick="toggleDive(this)">
+        <div class="dive-num">07</div>
+        <div class="dive-title">海外市場（多語 ‧ 多幣 ‧ 跨境）</div>
+        <div class="dive-pips"><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span></span></div>
+        <div class="dive-toggle">+</div>
+      </div>
+      <div class="dive-body"><div class="dive-content">
+        <div class="dive-block">
+          <span class="dive-block-label">Scope · 能做什麼</span>
+          <ul>
+            <li>多語系：<code>Laravel localization</code> + <code>spatie/laravel-translatable</code></li>
+            <li>多幣別：每筆交易記原幣 + 結算幣 + 匯率</li>
+            <li>多稅制（VAT、GST、消費稅、服務費）</li>
+            <li>跨境金流：Stripe、Adyen</li>
+          </ul>
+        </div>
+        <div class="dive-block">
+          <span class="dive-block-label">Risk · 主要風險</span>
+          <ul>
+            <li>中國市場要走獨立部署（VPN / ICP / 微信支付 / 支付寶）</li>
+            <li>東南亞每個國家發票稅制不同</li>
+          </ul>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="dive" id="d8">
+      <div class="dive-head" onclick="toggleDive(this)">
+        <div class="dive-num">08</div>
+        <div class="dive-title">硬體周邊（KDS · Kiosk · 排隊機）</div>
+        <div class="dive-pips"><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span></span></div>
+        <div class="dive-toggle">+</div>
+      </div>
+      <div class="dive-body"><div class="dive-content">
+        <div class="dive-block">
+          <p><strong>Flutter 在這題是強項</strong> — 一份程式碼可以跑 iPad、Android 平板、Windows、Linux。</p>
+        </div>
+        <div class="dive-block">
+          <span class="dive-block-label">KDS · 廚房顯示</span>
+          <ul>
+            <li>Flutter 跑在 Android TV / 平板</li>
+            <li>WebSocket 即時收單（Laravel Reverb / Pusher / Soketi）</li>
+            <li>顏色狀態、計時、完成回拋</li>
+          </ul>
+        </div>
+        <div class="dive-block">
+          <span class="dive-block-label">Kiosk · 自助點餐機</span>
+          <ul>
+            <li>Flutter for Windows / Android</li>
+            <li>整合刷卡機（USB / RS232 / TCP）</li>
+            <li>整合發票機（EPSON ESC/POS）</li>
+          </ul>
+        </div>
+        <div class="dive-block">
+          <span class="dive-block-label">Risk · 主要風險</span>
+          <ul>
+            <li>硬體驅動是大坑：發票機 ESC/POS 指令、刷卡機 EDC 規格</li>
+            <li>建議<strong>只做螢幕端</strong>，硬體外設由肚肚既有方案串</li>
+          </ul>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="dive" id="d9">
+      <div class="dive-head" onclick="toggleDive(this)">
+        <div class="dive-num">09</div>
+        <div class="dive-title">AI 應用 — LLM 類</div>
+        <div class="dive-pips"><span class="f"></span><span class="f"></span><span class="f"></span><span></span><span></span></div>
+        <div class="dive-toggle">+</div>
+      </div>
+      <div class="dive-body"><div class="dive-content">
+        <div class="dive-block">
+          <span class="dive-block-label">Doable · 可以做</span>
+          <ul>
+            <li>AI 客服：<code>OpenAI / Claude / Gemini API</code> + RAG（<code>pgvector</code> / <code>Pinecone</code>）</li>
+            <li>銷售預測：Laravel 排程跑 Python 微服務（FastAPI）</li>
+            <li>菜單推薦：協同過濾</li>
+            <li>自動回覆評論（Google Maps）</li>
+          </ul>
+        </div>
+        <div class="dive-block">
+          <span class="dive-block-label">Avoid · 不要主動接</span>
+          <ul>
+            <li>影像辨識（菜品偵測、桌況、人流計數）</li>
+            <li>語音點餐（ASR + NLU）</li>
+          </ul>
+        </div>
+        <div class="dive-block">
+          <span class="dive-block-label">Alternative · 替代策略</span>
+          <ul>
+            <li>影像：<code>Google Vision</code> / <code>AWS Rekognition</code> / <code>Azure CV</code></li>
+            <li>語音：<code>Whisper API</code> / <code>Google Speech-to-Text</code></li>
+            <li>你們負責<strong>串接 + 業務邏輯</strong>，模型外包給雲服務</li>
+          </ul>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="dive" id="d10">
+      <div class="dive-head" onclick="toggleDive(this)">
+        <div class="dive-num">10</div>
+        <div class="dive-title">店家後台 UI 重構</div>
+        <div class="dive-pips"><span class="f"></span><span class="f"></span><span class="f"></span><span></span><span></span></div>
+        <div class="dive-toggle">+</div>
+      </div>
+      <div class="dive-body"><div class="dive-content">
+        <div class="dive-block">
+          <span class="dive-block-label">Verify First · 先問清楚</span>
+          <ul>
+            <li>PHP/Laravel + Blade → <strong>你們可以直接接</strong></li>
+            <li>React/Vue SPA → 你們得有前端能力</li>
+            <li>.NET / Node → <strong>需要先重構後端才能接前端</strong></li>
+          </ul>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="dive" id="d11">
+      <div class="dive-head" onclick="toggleDive(this)">
+        <div class="dive-num">11</div>
+        <div class="dive-title">AI 影像辨識（CV）</div>
+        <div class="dive-pips"><span class="f"></span><span class="f"></span><span></span><span></span><span></span></div>
+        <div class="dive-toggle">+</div>
+      </div>
+      <div class="dive-body"><div class="dive-content">
+        <div class="dive-block">
+          <p><strong>不要主動承接自研 CV 模型。</strong>需要 ML 工程師、訓練資料、GPU 推論成本。</p>
+          <p>替代方案：<strong>串第三方</strong> — Google Vision、AWS Rekognition、Azure Computer Vision。
+          你們收的是「整合費」與「業務邏輯費」，不是「模型費」。</p>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="dive" id="d12">
+      <div class="dive-head" onclick="toggleDive(this)">
+        <div class="dive-num">12</div>
+        <div class="dive-title">iPad POS App 重構</div>
+        <div class="dive-pips"><span class="f"></span><span class="f"></span><span></span><span></span><span></span></div>
+        <div class="dive-toggle">+</div>
+      </div>
+      <div class="dive-body"><div class="dive-content">
+        <div class="dive-block">
+          <p>如果現在是<strong>原生 Swift</strong> → 不要主動建議改 Flutter。
+          POS 對效能、藍牙、receipt printer 整合要求高，Flutter 在這些細節會踩坑。</p>
+          <p>如果現在是 <strong>Web App / PWA</strong> → Flutter 改寫可行但要小心。</p>
+          <p><strong>策略：不主動提這題，等他們提。</strong></p>
+        </div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- Section 6: Strategy -->
+  <section id="s6">
+    <div class="section-head">
+      <div class="section-marker">§ 06</div>
+      <h2 class="section-title">會議<em>策略</em></h2>
+      <div class="section-aside">Engagement Plan</div>
+    </div>
+    <p class="section-deck">
+      如果他們開放讓我方提議，按「價值密度」分三波推進。
+    </p>
+
+    <div class="strategy">
+      <div class="strat">
+        <div class="strat-num">i</div>
+        <div class="strat-label"><strong>First Wave</strong>接 + 賺 / Quick Win</div>
+        <h4>風險低、做得來、能立刻報價</h4>
+        <ul>
+          <li>CRM + 會員行銷自動化</li>
+          <li>排班系統（Web + Flutter）</li>
+          <li>進銷存深化（Web + Flutter 盤點）</li>
+        </ul>
+      </div>
+      <div class="strat">
+        <div class="strat-num">ii</div>
+        <div class="strat-label"><strong>Second Wave</strong>戰略卡位 / Strategic Moat</div>
+        <h4>長期合約、護城河效應</h4>
+        <ul>
+          <li>開放 API / Open Platform</li>
+          <li>金流 ‧ 發票 ‧ ERP 中介層</li>
+        </ul>
+      </div>
+      <div class="strat">
+        <div class="strat-num">iii</div>
+        <div class="strat-label"><strong>Third Wave</strong>技術探索 / Exploratory</div>
+        <h4>需要技術盡調再報價</h4>
+        <ul>
+          <li>AI 應用（先做 LLM 類）</li>
+          <li>BI 儀表板（看資料量級）</li>
+          <li>硬體周邊（KDS、Kiosk）</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 7: Questions -->
+  <section id="s7">
+    <div class="section-head">
+      <div class="section-marker">§ 07</div>
+      <h2 class="section-title">提問<em>清單</em></h2>
+      <div class="section-aside">Discovery Questions</div>
+    </div>
+    <p class="section-deck">這七題沒問清楚之前，不報價、不寫 SOW。</p>
+
+    <div class="q-list">
+      <div class="q-item">
+        <div class="q-num">Q.01</div>
+        <div>
+          <div class="q-text">你們現在 POS 後端是什麼語言？資料庫是 MySQL / PostgreSQL / MSSQL？</div>
+          <div class="q-why">決定整合難度。如果是 PHP/Laravel，我們直接接；如果是 .NET，整合成本要重新評估。</div>
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q.02</div>
+        <div>
+          <div class="q-text">店家後台是 SPA 還是 SSR？前端框架是什麼？</div>
+          <div class="q-why">決定我們能不能直接動既有介面。</div>
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q.03</div>
+        <div>
+          <div class="q-text">iPad POS App 是原生 Swift 還是 Web / Hybrid？</div>
+          <div class="q-why">影響「店端改動」這條路能不能走 Flutter。</div>
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q.04</div>
+        <div>
+          <div class="q-text">資料量等級？多少店、多少筆交易 / 日？</div>
+          <div class="q-why">決定 BI 架構（Laravel + MySQL 還是 ClickHouse）。</div>
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q.05</div>
+        <div>
+          <div class="q-text">有沒有現成的 API 層？還是要我們直接接 DB？</div>
+          <div class="q-why">直接接 DB 是技術債陷阱，要爭取走 API。</div>
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q.06</div>
+        <div>
+          <div class="q-text">合作模式是包專案、駐點、還是 SI 分潤？</div>
+          <div class="q-why">影響合約結構、人力配置、長期關係。</div>
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q.07</div>
+        <div>
+          <div class="q-text">未來維運由誰負責？我們交付後脫手，還是長期支援？</div>
+          <div class="q-why">影響架構選型（要不要做高觀測性、自動化部署）。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 8: Risks -->
+  <section id="s8">
+    <div class="section-head">
+      <div class="section-marker">§ 08</div>
+      <h2 class="section-title">應避<em>之雷</em></h2>
+      <div class="section-aside">Risk Advisory</div>
+    </div>
+    <p class="section-deck">該避開或慎重的承諾 — 簽下去之前要先過自我檢查。</p>
+
+    <div class="risk-box">
+      <div class="risk-title">Six Hard Lines · 六條紅線</div>
+      <ul>
+        <li><strong>不要承諾自研 ML 模型</strong> — 除非你們有 ML 工程師、資料管線、GPU 預算</li>
+        <li><strong>不要承諾硬體驅動開發</strong> — 除非你們有韌體 / 嵌入式經驗</li>
+        <li><strong>不要承諾「重寫整套 POS」</strong> — 這是 18 個月以上的坑，是 SI 大廠才能吃下的案子</li>
+        <li><strong>不要在沒看到 SOW 之前報價</strong> — 餐飲業客製需求很細，沒寫清楚會無限延伸</li>
+        <li><strong>不要在沒看到他們既有架構之前承諾 SLA</strong> — 老系統的耦合度是未知數</li>
+        <li><strong>不要在沒簽 NDA 之前透露我方核心技術細節</strong> — 對方背後有鴻海，要謹慎</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Section 9: Glossary -->
+  <section id="s9">
+    <div class="section-head">
+      <div class="section-marker">§ 09</div>
+      <h2 class="section-title">術語<em>說明</em></h2>
+      <div class="section-aside">Glossary</div>
+    </div>
+    <p class="section-deck">
+      本報告涉及的縮寫與技術名詞速查。會議時對方若提到任一詞彙，可直接對照。
+    </p>
+
+    <div class="glossary">
+      <div class="glossary-group">
+        <h3 class="glossary-group-title">商業 / 合約</h3>
+        <dl>
+          <div><dt>SaaS</dt><dd>軟體即服務。雲端訂閱制軟體，按月付費而非買斷。</dd></div>
+          <div><dt>BI</dt><dd>商業智慧。把資料庫的交易紀錄轉成老闆看得懂的圖表報表。</dd></div>
+          <div><dt>CRM</dt><dd>客戶關係管理。會員資料、消費紀錄、行銷溝通的中央系統。</dd></div>
+          <div><dt>RFM</dt><dd>會員分群三維度：最近一次消費、消費頻率、消費金額。</dd></div>
+          <div><dt>ERP</dt><dd>企業資源規劃。總公司的內部後台，管財會、庫存、人資（如鼎新、SAP）。</dd></div>
+          <div><dt>SOW</dt><dd>工作說明書。合約附件，寫清楚要做什麼、不做什麼、交付什麼。</dd></div>
+          <div><dt>NDA</dt><dd>保密協議。雙方先簽，才能交換內部技術或商業資訊。</dd></div>
+          <div><dt>SLA</dt><dd>服務水準協議。承諾系統可用率（例如 99.9%）。</dd></div>
+          <div><dt>SI</dt><dd>系統整合商。專做大型整合案的公司（如鼎新顧問商）。</dd></div>
+          <div><dt>iPaaS</dt><dd>整合平台即服務。當作各系統間的「萬用轉接器」。</dd></div>
+        </dl>
+      </div>
+      <div class="glossary-group">
+        <h3 class="glossary-group-title">技術概念</h3>
+        <dl>
+          <div><dt>API</dt><dd>系統與系統之間的溝通介面。POS 要傳資料給排班系統，就透過 API。</dd></div>
+          <div><dt>Webhook</dt><dd>系統主動通知對方的機制。POS 收到訂單 → 自動推一筆通知給庫存系統。</dd></div>
+          <div><dt>OAuth2</dt><dd>標準的授權登入流程。例如「用 Google 帳號登入」就是 OAuth2。</dd></div>
+          <div><dt>PWA</dt><dd>用瀏覽器開的網頁，但可加到手機桌面，操作像 App 一樣。</dd></div>
+          <div><dt>SPA</dt><dd>單頁應用。網頁不重新整理就能切換內容（如 Gmail、Notion）。</dd></div>
+          <div><dt>SSR</dt><dd>伺服器端渲染。傳統做法，每次點連結都重新讀整頁。</dd></div>
+          <div><dt>OLAP</dt><dd>線上分析處理。專為「大量資料聚合查詢」優化的資料庫類型。</dd></div>
+          <div><dt>LLM</dt><dd>大型語言模型。ChatGPT、Claude、Gemini 這類 AI。</dd></div>
+          <div><dt>RAG</dt><dd>讓 AI 回答前先去查內部資料庫，避免亂講。</dd></div>
+          <div><dt>CV</dt><dd>電腦視覺。讓電腦「看圖」辨識內容的技術。</dd></div>
+          <div><dt>ML</dt><dd>機器學習。AI 訓練模型的統稱。</dd></div>
+        </dl>
+      </div>
+      <div class="glossary-group">
+        <h3 class="glossary-group-title">餐飲場景</h3>
+        <dl>
+          <div><dt>POS</dt><dd>餐廳收銀系統。負責點餐、結帳、列印發票、出單給廚房。</dd></div>
+          <div><dt>KDS</dt><dd>廚房顯示系統。把訂單顯示在廚房螢幕上，取代紙本出單。</dd></div>
+          <div><dt>Kiosk</dt><dd>自助點餐機。客人自己操作的大螢幕點餐機（麥當勞那種）。</dd></div>
+          <div><dt>BOM</dt><dd>物料清單。一杯珍奶用幾克茶葉、幾顆珍珠的成本拆解表。</dd></div>
+          <div><dt>ESC/POS</dt><dd>EPSON 制定的熱感印表機指令集。所有市售收據印表機都支援這套。</dd></div>
+          <div><dt>EDC</dt><dd>刷卡機規格。串卡機收單時要照銀行的 EDC 規範。</dd></div>
+          <div><dt>LINE OA</dt><dd>LINE 官方帳號。店家在 LINE 上的客服與行銷管道。</dd></div>
+          <div><dt>LINE SPOT</dt><dd>LINE 內建的地點服務頁面，可導流到店家。</dd></div>
+        </dl>
+      </div>
+      <div class="glossary-group">
+        <h3 class="glossary-group-title">工具 / 套件</h3>
+        <dl>
+          <div><dt>Laravel</dt><dd>主流的 PHP 後端框架。本提案的後端骨幹。</dd></div>
+          <div><dt>Flutter</dt><dd>Google 的跨平台 App 框架。一份程式碼能跑 iOS / Android / Windows / Mac。</dd></div>
+          <div><dt>Filament</dt><dd>Laravel 的後台系統產生器，快速做出管理介面。</dd></div>
+          <div><dt>ClickHouse</dt><dd>專門處理大量分析查詢的資料庫，比傳統 MySQL 快幾十倍。</dd></div>
+          <div><dt>Redis</dt><dd>記憶體型快取資料庫，用於排程、佇列、即時計數。</dd></div>
+          <div><dt>Horizon</dt><dd>Laravel 的佇列管理工具。</dd></div>
+          <div><dt>Reverb / Pusher</dt><dd>即時通訊服務。讓網頁能「主動」收到伺服器新訊息（如 KDS 即時收單）。</dd></div>
+          <div><dt>FCM</dt><dd>Google 的手機推播服務。</dd></div>
+          <div><dt>pgvector / Pinecone</dt><dd>向量資料庫。AI 應用裡用來做「相似度搜尋」（RAG 的後端）。</dd></div>
+          <div><dt>Metabase / Superset</dt><dd>開源 BI 工具，可直接接資料庫產出儀表板。</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  function toggleDive(headEl) {
+    headEl.closest('.dive').classList.toggle('open');
+  }
+  window.toggleDive = toggleDive;
+
+  document.querySelectorAll('.matrix-table tbody tr[data-target]').forEach(row => {
+    row.addEventListener('click', () => {
+      const t = document.getElementById(row.getAttribute('data-target'));
+      if (!t) return;
+      if (!t.classList.contains('open')) t.classList.add('open');
+      const offset = t.getBoundingClientRect().top + window.pageYOffset - 80;
+      window.scrollTo({ top: offset, behavior: 'smooth' });
+      const prev = t.style.borderColor;
+      t.style.borderColor = 'var(--gold)';
+      setTimeout(() => t.style.borderColor = prev, 1500);
+    });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.key === 'e' || e.key === 'E') document.querySelectorAll('.dive').forEach(d => d.classList.add('open'));
+    if (e.key === 'c' || e.key === 'C') document.querySelectorAll('.dive').forEach(d => d.classList.remove('open'));
+  });
+</script>
+
+</body>
+</html>
