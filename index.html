@@ -407,96 +407,6 @@
         font-weight: 500;
       }
 
-      /* ===== Matrix ===== */
-      .matrix-table {
-        width: 100%;
-        border-collapse: collapse;
-        background: var(--surface);
-        border: 1px solid var(--rule);
-        font-size: 16px;
-      }
-
-      .matrix-table thead th {
-        background: var(--surface-2);
-        text-align: left;
-        padding: 14px 18px;
-        font-family: var(--mono);
-        font-size: 16px;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: var(--gold);
-        font-weight: 600;
-        border-bottom: 2px solid var(--gold);
-      }
-
-      .matrix-table tbody tr {
-        border-bottom: 1px solid var(--rule);
-        cursor: pointer;
-        transition: background 0.15s ease;
-      }
-      .matrix-table tbody tr:hover {
-        background: var(--surface-2);
-      }
-      .matrix-table tbody tr:last-child {
-        border-bottom: none;
-      }
-
-      .matrix-table td {
-        padding: 14px 18px;
-        vertical-align: middle;
-      }
-
-      .m-rank {
-        font-family: var(--mono);
-        font-size: 16px;
-        color: var(--text-mute);
-        font-weight: 500;
-        width: 50px;
-      }
-
-      .m-name {
-        font-family: var(--serif);
-        font-weight: 500;
-        color: var(--text);
-        font-size: 16px;
-      }
-
-      .m-score {
-        width: 180px;
-      }
-
-      .score-pip {
-        display: inline-flex;
-        gap: 4px;
-        align-items: center;
-      }
-
-      .score-pip span {
-        width: 9px;
-        height: 16px;
-        background: var(--rule);
-      }
-
-      .score-pip span.f {
-        background: var(--gold);
-      }
-
-      .score-num {
-        font-family: var(--mono);
-        font-size: 16px;
-        color: var(--text-mute);
-        margin-left: 10px;
-        letter-spacing: 0.04em;
-      }
-
-      .m-stack {
-        font-family: var(--mono);
-        font-size: 16px;
-        color: var(--text-2);
-        letter-spacing: 0.02em;
-        width: 200px;
-      }
-
       .rating-tag {
         font-family: var(--mono);
         font-size: 16px;
@@ -544,13 +454,20 @@
 
       .dive-head {
         display: grid;
-        grid-template-columns: 60px 1fr 160px 60px;
+        grid-template-columns: 60px 1fr 100px 110px 50px;
         gap: 20px;
         align-items: center;
         padding: 22px 28px;
         cursor: pointer;
         user-select: none;
         transition: background 0.15s ease;
+      }
+      .dive-head .rating-tag {
+        font-size: 13px;
+        letter-spacing: 0.15em;
+        padding: 3px 8px;
+        text-align: center;
+        justify-self: end;
       }
       .dive-head:hover {
         background: var(--surface-2);
@@ -1146,15 +1063,17 @@
         .snap-grid {
           grid-template-columns: 1fr;
         }
-        .matrix-table .m-stack,
-        .matrix-table .m-score {
-          display: none;
-        }
         .dive-head {
-          grid-template-columns: 40px 1fr 30px;
+          grid-template-columns: 40px 1fr auto 30px;
+          gap: 12px;
         }
         .dive-head .dive-pips {
           display: none;
+        }
+        .dive-head .rating-tag {
+          font-size: 11px;
+          letter-spacing: 0.1em;
+          padding: 2px 6px;
         }
       }
 
@@ -1372,7 +1291,7 @@
         </div>
       </section>
 
-      <!-- Section 4: Matrix -->
+      <!-- Section 4: Opportunity Matrix & Detailed Assessment -->
       <section id="s4">
         <div class="section-head">
           <div class="section-marker">§ 04</div>
@@ -1380,188 +1299,7 @@
           <div class="section-aside">Opportunity Matrix</div>
         </div>
         <p class="section-deck">
-          以 Laravel × Flutter 適配度為基礎，對十二個可能合作面向打分排序。
-          點擊任一列可跳至下方對應深度評估。
-        </p>
-
-        <table class="matrix-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Opportunity · 合作面向</th>
-              <th>Fit Score · 適配度</th>
-              <th>Stack · 主棧</th>
-              <th>Rating · 建議</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr data-target="d1">
-              <td class="m-rank">01</td>
-              <td class="m-name">CRM ‧ 會員行銷自動化</td>
-              <td class="m-score">
-                <div class="score-pip">
-                  <span class="f"></span><span class="f"></span
-                  ><span class="f"></span><span class="f"></span
-                  ><span class="f"></span><span class="score-num">5.0</span>
-                </div>
-              </td>
-              <td class="m-stack">Laravel + Filament</td>
-              <td><span class="rating-tag buy">Buy</span></td>
-            </tr>
-            <tr data-target="d2">
-              <td class="m-rank">02</td>
-              <td class="m-name">進銷存深化</td>
-              <td class="m-score">
-                <div class="score-pip">
-                  <span class="f"></span><span class="f"></span
-                  ><span class="f"></span><span class="f"></span
-                  ><span class="f"></span><span class="score-num">5.0</span>
-                </div>
-              </td>
-              <td class="m-stack">Laravel + Flutter</td>
-              <td><span class="rating-tag buy">Buy</span></td>
-            </tr>
-            <tr data-target="d3">
-              <td class="m-rank">03</td>
-              <td class="m-name">排班系統</td>
-              <td class="m-score">
-                <div class="score-pip">
-                  <span class="f"></span><span class="f"></span
-                  ><span class="f"></span><span class="f"></span
-                  ><span class="f"></span><span class="score-num">5.0</span>
-                </div>
-              </td>
-              <td class="m-stack">Laravel + Flutter</td>
-              <td><span class="rating-tag buy">Sweet Spot</span></td>
-            </tr>
-            <tr data-target="d4">
-              <td class="m-rank">04</td>
-              <td class="m-name">開放 API ‧ Open Platform</td>
-              <td class="m-score">
-                <div class="score-pip">
-                  <span class="f"></span><span class="f"></span
-                  ><span class="f"></span><span class="f"></span
-                  ><span class="f"></span><span class="score-num">5.0</span>
-                </div>
-              </td>
-              <td class="m-stack">Laravel Passport</td>
-              <td><span class="rating-tag strategic">Strategic</span></td>
-            </tr>
-            <tr data-target="d5">
-              <td class="m-rank">05</td>
-              <td class="m-name">第三方整合中介層</td>
-              <td class="m-score">
-                <div class="score-pip">
-                  <span class="f"></span><span class="f"></span
-                  ><span class="f"></span><span class="f"></span
-                  ><span class="f"></span><span class="score-num">5.0</span>
-                </div>
-              </td>
-              <td class="m-stack">Laravel iPaaS</td>
-              <td><span class="rating-tag strategic">Strategic</span></td>
-            </tr>
-            <tr data-target="d6">
-              <td class="m-rank">06</td>
-              <td class="m-name">BI ‧ 數據分析儀表板</td>
-              <td class="m-score">
-                <div class="score-pip">
-                  <span class="f"></span><span class="f"></span
-                  ><span class="f"></span><span class="f"></span><span></span
-                  ><span class="score-num">4.0</span>
-                </div>
-              </td>
-              <td class="m-stack">+ ClickHouse</td>
-              <td><span class="rating-tag hold">Hold</span></td>
-            </tr>
-            <tr data-target="d7">
-              <td class="m-rank">07</td>
-              <td class="m-name">海外市場（多語 ‧ 多幣）</td>
-              <td class="m-score">
-                <div class="score-pip">
-                  <span class="f"></span><span class="f"></span
-                  ><span class="f"></span><span class="f"></span><span></span
-                  ><span class="score-num">4.0</span>
-                </div>
-              </td>
-              <td class="m-stack">Laravel i18n</td>
-              <td><span class="rating-tag hold">Hold</span></td>
-            </tr>
-            <tr data-target="d8">
-              <td class="m-rank">08</td>
-              <td class="m-name">硬體周邊（KDS · Kiosk）</td>
-              <td class="m-score">
-                <div class="score-pip">
-                  <span class="f"></span><span class="f"></span
-                  ><span class="f"></span><span class="f"></span><span></span
-                  ><span class="score-num">4.0</span>
-                </div>
-              </td>
-              <td class="m-stack">Flutter Desktop</td>
-              <td><span class="rating-tag hold">Hold</span></td>
-            </tr>
-            <tr data-target="d9">
-              <td class="m-rank">09</td>
-              <td class="m-name">AI 應用 — LLM 類</td>
-              <td class="m-score">
-                <div class="score-pip">
-                  <span class="f"></span><span class="f"></span
-                  ><span class="f"></span><span></span><span></span
-                  ><span class="score-num">3.0</span>
-                </div>
-              </td>
-              <td class="m-stack">Laravel + LLM API</td>
-              <td><span class="rating-tag hold">Hold</span></td>
-            </tr>
-            <tr data-target="d10">
-              <td class="m-rank">10</td>
-              <td class="m-name">店家後台 UI 重構</td>
-              <td class="m-score">
-                <div class="score-pip">
-                  <span class="f"></span><span class="f"></span
-                  ><span class="f"></span><span></span><span></span
-                  ><span class="score-num">3.0</span>
-                </div>
-              </td>
-              <td class="m-stack">視現況決定</td>
-              <td><span class="rating-tag verify">Verify</span></td>
-            </tr>
-            <tr data-target="d11">
-              <td class="m-rank">11</td>
-              <td class="m-name">AI 影像辨識（CV）</td>
-              <td class="m-score">
-                <div class="score-pip">
-                  <span class="f"></span><span class="f"></span><span></span
-                  ><span></span><span></span><span class="score-num">2.0</span>
-                </div>
-              </td>
-              <td class="m-stack">外接雲端 API</td>
-              <td><span class="rating-tag avoid">Avoid</span></td>
-            </tr>
-            <tr data-target="d12">
-              <td class="m-rank">12</td>
-              <td class="m-name">iPad POS App 重構</td>
-              <td class="m-score">
-                <div class="score-pip">
-                  <span class="f"></span><span class="f"></span><span></span
-                  ><span></span><span></span><span class="score-num">2.0</span>
-                </div>
-              </td>
-              <td class="m-stack">不建議</td>
-              <td><span class="rating-tag avoid">Avoid</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-
-      <!-- Section 5: Deep dives -->
-      <section id="s5">
-        <div class="section-head">
-          <div class="section-marker">§ 05</div>
-          <h2 class="section-title">深入<em>評估</em></h2>
-          <div class="section-aside">Detailed Assessment</div>
-        </div>
-        <p class="section-deck">
-          點擊任一卡片展開完整評估。內容含可做項目、技術選型、風險。
+          以 Laravel × Flutter 適配度為基礎，對十二個可能合作面向打分、貼上建議標籤。點擊任一卡片展開完整評估 — 含可做項目、技術選型、風險。
         </p>
 
         <div class="dive" id="d1">
@@ -1573,6 +1311,7 @@
               ><span class="f"></span><span class="f"></span
               ><span class="f"></span>
             </div>
+            <span class="rating-tag buy">Buy</span>
             <div class="dive-toggle">+</div>
           </div>
           <div class="dive-body">
@@ -1624,6 +1363,7 @@
               ><span class="f"></span><span class="f"></span
               ><span class="f"></span>
             </div>
+            <span class="rating-tag buy">Buy</span>
             <div class="dive-toggle">+</div>
           </div>
           <div class="dive-body">
@@ -1670,12 +1410,13 @@
         <div class="dive" id="d3">
           <div class="dive-head" onclick="toggleDive(this)">
             <div class="dive-num">03</div>
-            <div class="dive-title">排班系統<em>— Sweet Spot</em></div>
+            <div class="dive-title">排班系統</div>
             <div class="dive-pips">
               <span class="f"></span><span class="f"></span
               ><span class="f"></span><span class="f"></span
               ><span class="f"></span>
             </div>
+            <span class="rating-tag buy">Sweet Spot</span>
             <div class="dive-toggle">+</div>
           </div>
           <div class="dive-body">
@@ -1733,6 +1474,7 @@
               ><span class="f"></span><span class="f"></span
               ><span class="f"></span>
             </div>
+            <span class="rating-tag strategic">Strategic</span>
             <div class="dive-toggle">+</div>
           </div>
           <div class="dive-body">
@@ -1779,6 +1521,7 @@
               ><span class="f"></span><span class="f"></span
               ><span class="f"></span>
             </div>
+            <span class="rating-tag strategic">Strategic</span>
             <div class="dive-toggle">+</div>
           </div>
           <div class="dive-body">
@@ -1823,6 +1566,7 @@
               <span class="f"></span><span class="f"></span
               ><span class="f"></span><span class="f"></span><span></span>
             </div>
+            <span class="rating-tag hold">Hold</span>
             <div class="dive-toggle">+</div>
           </div>
           <div class="dive-body">
@@ -1874,6 +1618,7 @@
               <span class="f"></span><span class="f"></span
               ><span class="f"></span><span class="f"></span><span></span>
             </div>
+            <span class="rating-tag hold">Hold</span>
             <div class="dive-toggle">+</div>
           </div>
           <div class="dive-body">
@@ -1909,6 +1654,7 @@
               <span class="f"></span><span class="f"></span
               ><span class="f"></span><span class="f"></span><span></span>
             </div>
+            <span class="rating-tag hold">Hold</span>
             <div class="dive-toggle">+</div>
           </div>
           <div class="dive-body">
@@ -1958,6 +1704,7 @@
               <span class="f"></span><span class="f"></span
               ><span class="f"></span><span></span><span></span>
             </div>
+            <span class="rating-tag hold">Hold</span>
             <div class="dive-toggle">+</div>
           </div>
           <div class="dive-body">
@@ -3773,22 +3520,6 @@
         headEl.closest(".dive").classList.toggle("open");
       }
       window.toggleDive = toggleDive;
-
-      document
-        .querySelectorAll(".matrix-table tbody tr[data-target]")
-        .forEach((row) => {
-          row.addEventListener("click", () => {
-            const t = document.getElementById(row.getAttribute("data-target"));
-            if (!t) return;
-            if (!t.classList.contains("open")) t.classList.add("open");
-            const offset =
-              t.getBoundingClientRect().top + window.pageYOffset - 80;
-            window.scrollTo({ top: offset, behavior: "smooth" });
-            const prev = t.style.borderColor;
-            t.style.borderColor = "var(--gold)";
-            setTimeout(() => (t.style.borderColor = prev), 1500);
-          });
-        });
 
       document.addEventListener("keydown", (e) => {
         if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")
